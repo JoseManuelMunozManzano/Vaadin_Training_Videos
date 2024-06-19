@@ -4,6 +4,9 @@ package com.vaadin.training.grid.exercises.ex3;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.provider.CallbackDataProvider;
+import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
+import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.training.grid.exercises.MainLayout;
 import com.vaadin.training.grid.exercises.ex1.Person;
@@ -37,8 +40,25 @@ public class BackEndDataProvider extends VerticalLayout {
 		add(grid);
 
 		// TODO create lazy Data Provider using the PersonService
+		final CallbackDataProvider<Person, AgeGroup> dataProvider = DataProvider.fromFilteringCallbacks(
+				query -> service.getPersons(
+						query.getOffset(),
+						query.getLimit(),
+						query.getFilter().orElse(null)
+				),
+				query -> service.countPersons(query.getOffset(),
+							query.getLimit(),
+							query.getFilter().orElse(null))
+		);
+
+		final ConfigurableFilterDataProvider<Person, Void, AgeGroup> filteredDataProvider =
+				dataProvider.withConfigurableFilter();
+
+		grid.setDataProvider(filteredDataProvider);
+
 		// TODO add value change listener to filter and update the DataProvider
 		// accordingly
+		filter.addValueChangeListener(event -> filteredDataProvider.setFilter(event.getValue()));
 
 		grid.addColumn(Person::getName).setHeader("Name").setKey("name");
 		grid.addColumn(Person::getEmail).setHeader("Email").setKey("email");
