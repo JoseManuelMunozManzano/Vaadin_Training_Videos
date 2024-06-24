@@ -16,7 +16,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Route("lottery")
 public class LotteryView extends Composite<VerticalLayout>
-        implements HasComponents, HasUrlParameter<Integer> {
+        implements HasComponents, HasUrlParameter<Integer>, HasDynamicTitle {
 
     private final Div lotteryResult = new Div();
     private final TextField numberInput = new TextField();
@@ -42,18 +42,6 @@ public class LotteryView extends Composite<VerticalLayout>
         add(lotteryResult);
     }
 
-    @Override
-    public void setParameter(BeforeEvent event, @OptionalParameter Integer parameter) {
-        if (parameter == null) {
-            numberInput.setValue("");
-            return;
-        }
-
-        validate(parameter);
-
-        numberInput.setValue(String.valueOf(parameter));
-    }
-
     private void updateContent(Integer number) {
         if (number == null) {
             lotteryResult.setText("");
@@ -77,5 +65,22 @@ public class LotteryView extends Composite<VerticalLayout>
                 throw new InvalidValueException();
             }
         }
+    }
+
+    @Override
+    public void setParameter(BeforeEvent event, @OptionalParameter Integer parameter) {
+        if (parameter == null) {
+            numberInput.setValue("");
+            return;
+        }
+
+        validate(parameter);
+
+        numberInput.setValue(String.valueOf(parameter));
+    }
+
+    @Override
+    public String getPageTitle() {
+        return "Lottery View " + numberInput.getValue();
     }
 }
