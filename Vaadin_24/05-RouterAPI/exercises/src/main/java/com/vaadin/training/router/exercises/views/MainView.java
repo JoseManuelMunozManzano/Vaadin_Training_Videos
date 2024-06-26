@@ -7,14 +7,18 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.training.router.exercises.components.Footer;
 import com.vaadin.training.router.exercises.components.Header;
 import com.vaadin.training.router.exercises.components.MenuBar;
 
-public class MainView extends Composite<VerticalLayout> implements RouterLayout, HasComponents {
+public class MainView extends Composite<VerticalLayout> implements RouterLayout, HasComponents, BeforeEnterObserver {
 
-    private static final Div childWrapper = new Div();
+    // Si pongo static y refresco la pantalla falla.
+    private final Div childWrapper = new Div();
 
     public MainView() {
 
@@ -44,5 +48,13 @@ public class MainView extends Composite<VerticalLayout> implements RouterLayout,
     @Override
     public void showRouterLayoutContent(HasElement content) {
         childWrapper.getElement().appendChild(content.getElement());
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (VaadinSession.getCurrent().getAttribute("userLoggedIn") == null) {
+            VaadinSession.getCurrent().setAttribute("intendedPath", event.getLocation().getPath());
+            event.rerouteTo("login");
+        }
     }
 }

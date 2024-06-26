@@ -9,6 +9,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
+import com.vaadin.training.router.exercises.components.CustomDialog;
 import com.vaadin.training.router.exercises.errors.InvalidValueException;
 
 import java.util.Random;
@@ -17,7 +18,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Route(value = "lottery", layout = MainView.class)
 public class LotteryView extends Composite<VerticalLayout>
-        implements HasComponents, HasUrlParameter<Integer>, HasDynamicTitle {
+        implements HasComponents, HasUrlParameter<Integer>, HasDynamicTitle, BeforeLeaveObserver {
 
     private final Div lotteryResult = new Div();
     private final TextField numberInput = new TextField();
@@ -83,5 +84,22 @@ public class LotteryView extends Composite<VerticalLayout>
     @Override
     public String getPageTitle() {
         return "Lottery View " + numberInput.getValue();
+    }
+
+    @Override
+    public void beforeLeave(BeforeLeaveEvent event) {
+        if (!numberInput.getValue().isEmpty()) {
+            BeforeLeaveEvent.ContinueNavigationAction action = event.postpone();
+
+            final CustomDialog myDialog = new CustomDialog();
+            myDialog.getConfirmButton().addClickListener(e -> {
+                action.proceed();
+                myDialog.close();
+            });
+            myDialog.getCancelButton().addClickListener(e -> {
+                myDialog.close();
+            });
+            myDialog.open();
+        }
     }
 }
