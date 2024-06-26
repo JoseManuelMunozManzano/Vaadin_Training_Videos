@@ -1,4 +1,4 @@
-package com.vaadin.training.router.exercises;
+package com.vaadin.training.router.exercises.views;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasComponents;
@@ -9,8 +9,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
 @PageTitle("Home")
-@Route("home")
-//@RouteAlias("")
+@Route(value = "home", layout = MainView.class)
+@RouteAlias(value = "/", layout = MainView.class)
 public class HomeView extends Composite<Div> implements HasComponents {
 
     public HomeView() {

@@ -1,4 +1,4 @@
-package com.vaadin.training.router.exercises;
+package com.vaadin.training.router.exercises.views;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.HasComponents;
@@ -9,12 +9,13 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
+import com.vaadin.training.router.exercises.errors.InvalidValueException;
 
 import java.util.Random;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-@Route("lottery")
+@Route(value = "lottery", layout = MainView.class)
 public class LotteryView extends Composite<VerticalLayout>
         implements HasComponents, HasUrlParameter<Integer>, HasDynamicTitle {
 
