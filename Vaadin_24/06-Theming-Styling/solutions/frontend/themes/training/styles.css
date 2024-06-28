@@ -1,0 +1,28 @@
+/**
+  Since Vaadin24 you can also target elements inside the shadow DOM if they are exposed as "parts".
+  For more information see https://vaadin.com/docs/latest/styling/styling-components/parts-and-states
+ */
+
+/* Exercise 2 */
+
+vaadin-email-field::part(label) {
+    color: red;
+}
+
+vaadin-checkbox.green-when-checked[checked] {
+    color: green;
+}
+
+vaadin-combo-box.yellowBg::part(input-field) {
+    background-color: yellow;
+}
+
+vaadin-combo-box-overlay.yellowBg::part(overlay) {
+    background-color: yellow;
+}
+
+/* Exercise 3 */
+
+vaadin-grid::part(warn) {
+    color: red;
+}
