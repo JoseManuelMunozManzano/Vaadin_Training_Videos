@@ -1,0 +1,15 @@
+vaadin-email-field::part(label) {
+    color: red;
+}
+
+vaadin-checkbox.to-green[checked] {
+    color: green;
+}
+
+vaadin-combo-box.yellow-bg::part(input-field) {
+    background-color: yellow;
+}
+
+vaadin-combo-box-overlay.yellow-bg::part(overlay) {
+    background-color: yellow;
+}

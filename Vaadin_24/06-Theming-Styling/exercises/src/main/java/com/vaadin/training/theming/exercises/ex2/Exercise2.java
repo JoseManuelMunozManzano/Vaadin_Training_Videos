@@ -7,6 +7,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import com.vaadin.training.theming.exercises.MainLayout;
 
 import java.io.Serial;
@@ -49,6 +50,7 @@ public class Exercise2 extends VerticalLayout {
         styledCheckbox.setLabel("Check me to change the style");
 
         // TODO style styledCheckbox so it's background turns green when it's checked
+        styledCheckbox.setClassName("to-green");
 
         add(new HorizontalLayout(normalCheckbox, styledCheckbox));
     }
@@ -61,8 +63,10 @@ public class Exercise2 extends VerticalLayout {
         yellowBgColorCombo.setItems("First", "Second", "Third");
 
         // TODO Style the yellowBgColorCombox so it has yellow background
+        yellowBgColorCombo.addClassName("yellow-bg");
 
         // TODO Style the yellowBgColorCombox popup overlay so it has yellow background
+        yellowBgColorCombo.setOverlayClassName("yellow-bg");
 
         add(new HorizontalLayout(normalCombo, yellowBgColorCombo));
     }
@@ -78,6 +82,16 @@ public class Exercise2 extends VerticalLayout {
         //   * to border to have "error" color
         //   * to have large top margin
         //   * to have medium padding
+        span.addClassNames(
+                LumoUtility.FontSize.LARGE,
+                LumoUtility.FontWeight.BOLD,
+                LumoUtility.Border.ALL,
+                LumoUtility.BorderRadius.SMALL,
+                LumoUtility.BorderColor.ERROR,
+                LumoUtility.Margin.Top.LARGE,
+                LumoUtility.Padding.MEDIUM
+        );
+
 
         add(span);
     }
