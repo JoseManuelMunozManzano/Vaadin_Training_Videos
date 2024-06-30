@@ -13,3 +13,7 @@ vaadin-combo-box.yellow-bg::part(input-field) {
 vaadin-combo-box-overlay.yellow-bg::part(overlay) {
     background-color: yellow;
 }
+
+vaadin-grid::part(warn) {
+    color: red;
+}

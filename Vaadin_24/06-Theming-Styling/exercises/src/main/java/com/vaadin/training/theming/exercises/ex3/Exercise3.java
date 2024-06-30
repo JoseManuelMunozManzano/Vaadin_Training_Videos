@@ -38,7 +38,10 @@ public class Exercise3 extends VerticalLayout {
 
     private TextField createLimitTextField() {
         TextField limit = new TextField("Limit for monthly expenses");
+
+        // Importante refrescar el Data Provider para que se puedan aplicar los estilos
         limit.addValueChangeListener(event -> expensesGrid.getDataProvider().refreshAll());
+
         return limit;
     }
 
@@ -55,9 +58,23 @@ public class Exercise3 extends VerticalLayout {
         //TODO 2. Style the grid part named "warn" in styles.css to render text in red color
         grid.addColumn(MonthlyExpense::getExpenses)
                 .setKey("expenses")
-                .setHeader("Expenses");
+                .setHeader("Expenses")
+                .setPartNameGenerator(this::generateWarnPartName);
+
+        /**
+         *  Note: you can also style the whole row by assigning a part name at
+         *  the "grid level": grid.setPartNameGenerator(expense ->
+         *  expense.getExpenses() > getMonthlyExpenseLimit() ? "warn" : null);
+         */
     }
 
+    private String generateWarnPartName(MonthlyExpense monthlyExpense) {
+        if (monthlyExpense.getExpenses() > getMonthlyExpenseLimit()) {
+            return "warn";
+        }
+
+        return null;
+    }
 
     private void populateGridData(Grid<MonthlyExpense> grid) {
         List<MonthlyExpense> data = new ArrayList<>();
