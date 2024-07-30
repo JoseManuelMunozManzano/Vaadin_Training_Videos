@@ -16,9 +16,9 @@ import com.vaadin.training.layouting.exercises.MainLayout;
 public class UseFormLayout extends VerticalLayout {
     public static final String ROUTE = "ex2";
     public static final String TITLE = "Exercise 2";
-    public static final FormLayout formLayout = new FormLayout();
-    public static FormItem formItem = new FormItem();
-    public static final PhoneLayout phoneLayout = new PhoneLayout();
+    public final FormLayout formLayout = new FormLayout();
+    public FormItem formItem = new FormItem();
+    public final PhoneLayout phoneLayout = new PhoneLayout();
 
     public UseFormLayout(){
         setSizeFull();
